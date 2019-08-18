@@ -7,24 +7,76 @@
     <title>Document</title>
     <style>
         #img {
-            position: relative;
+            position: absolute;
             width: 480px;
             height: 480px;
+            right: 1em;
+            bottom: 0;
             background: no-repeat url('http://ife.baidu.com/2016/static/img/erik_ce204002.jpg');
             background-position: 0px 0px;
+        }
+        .container {
+            height: 500px;
+            position: relative;
+        }
+        h1, p {
+            margin-left: 40px;
+            top: 20%;
+        }
+        h1 {
+            position: absolute;
+            font-size: 3.3rem;
+            font-weight: normal;
+            color: #000;
+
+        }
+        p {
+            position: absolute;
+            font-size: 1.5rem;
+            font-weight: normal;
+            color:#666;
+            margin-top: 12rem;
+        
         }
    
     </style>
 </head>
 <body>
     <div class="container">
-        <p>纸上得来终觉浅</p>
+        <h1>
+            纸上得来终觉浅
+            <br>
+            绝知此事要躬行
+        </h1>
+        <p>
+            我们精心设计了许多编码任务
+            <br>
+            让你可以循环渐进、由浅入深
+            <br>
+            地在实践中掌握技术
+            <br>
+        </p>
         <div id="img"></div>
     </div>
     <script>
-        setTimeout(changeImg, 1000)
-        function changeImg() {
-            document.getElementById('img').style.backgroundPosition = '0 -480px'
+        let x = 0;
+        let img = document.getElementById('img');
+        let y = setInterval(changImg, 100);
+        function changImg() {
+            if (!img.style.backgroundPosition) {
+                img.style.backgroundPosition = `0px -${x * 480}px`;
+            }
+            else if (x < 17) {
+                x++;
+                img.style.backgroundPosition = `0px -${x * 480}px`;
+            }
+            else if (x >= 17) {
+                x++;
+                img.style.backgroundPosition = `0px -${(34 -x) * 480}px`;
+                if (x == 34) {
+                    x = 0;
+                }
+            }
         }
     </script>
 </body>
