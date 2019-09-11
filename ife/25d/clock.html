@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>此页面上的脚本启动这个时钟：</p>
+
+<p id="demo"></p>
+
+<button id='stop'>停止时间</button>
+<button id='start'>开始时间</button>
+
+<script>
+    function setClock(){
+        let d = new Date();
+        document.getElementById('demo').innerHTML = d.toLocaleTimeString();
+    }
+    function startClock(){
+        let t = setInterval(setClock, 1000);
+        return t
+    }
+    let t = []
+    t[0] = startClock()
+    document.querySelector('button#stop').onclick = function() {
+        console.log(t[0]);
+        clearInterval(t[0])};
+    document.querySelector('button#start').onclick = function() {
+        t[0] = startClock();
+        console.log(t[0]);
+        }
+
+</script>
+
+</body>
+</html>

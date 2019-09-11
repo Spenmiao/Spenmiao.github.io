@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div.wrapper {
+            position: relative;
+        }
+        .autocomplete {
+            position:absolute;
+            display: none;
+            cursor: pointer;
+        }
+        .suggest-item:hover{
+            background-color: rgba(9, 9, 143, 0.548);
+        }
+            
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <input id="email-input" type="text" >
+        <div class="autocomplete" >
+            <div class="suggest-item">163.com</div>
+            <div class="suggest-item">126.com</div>
+            <div class="suggest-item">gmail.com</div>
+            <div class="suggest-item">qq.com</div>
+            <div class="suggest-item">263.net</div>
+    </div>
+    <script>
+        let postfixList = ['163.com', 'gmail.com', '126.com', 'qq.com', '263.net'];
+        let x = document.getElementById('email-input')
+        let z = document.querySelectorAll('.suggest-item')
+        let countKeyDown = 10;
+        x.focus()
+        x.onkeyup = function(){
+            let y = x.value.trim();
+            let cont = '';
+            let nodelist = Array.from(postfixList);
+            console.log(y.split('@')[0]);
+            // 拼接
+            if(y) {
+                document.querySelector('.autocomplete').style.display = 'block';
+                if (y.indexOf('@') >= 0){
+                    cont = y.split('@')[0];
+                    let indexCont = y.split('@')[1];
+                    nodelist = postfixList.filter(x => x.slice(0, indexCont.length).indexOf(indexCont) + 1);
+                    nodelist.length = 5;
+                    nodelist = Array.from(nodelist);
+                    console.log(nodelist);
+                }
+                else {
+                    cont = y;
+                }
+            // 显示
+            nodelist.forEach(function(i, index){
+                if(i){
+                    z[index].textContent = cont + '@' + i;
+                }
+                else {
+                    z[index].textContent = '';
+                }
+                })
+            }
+            else {
+            document.querySelector('.autocomplete').style.display = 'none';
+
+        }}
+        // 添加
+        z.forEach(function(numer, index){
+            numer.onclick = function() {
+                x.value = numer.textContent
+                x.focus();
+                document.querySelector('.autocomplete').style.display = 'none';
+            }
+        })
+
+        // 添加键盘
+        z[0].style.backgroundColor = '#a1edf5';
+        x.onkeydown = function(e){
+            console.log(countKeyDown);
+            if(e.keyCode == 38 || e.keyCode == 40) {
+                z.forEach(x => x.style.backgroundColor = '');
+                if(e.keyCode == 40){
+                    countKeyDown++;
+                    z[Math.abs(countKeyDown) % 5].style.backgroundColor = '#a1edf5'
+                }
+                else{
+                    countKeyDown--;
+                    z[Math.abs(countKeyDown) % 5].style.backgroundColor = '#a1edf5'
+                }
+            }
+            else if(e.keyCode == 13){
+                x.value = z[Math.abs(countKeyDown) % 5].textContent;
+                x.focus();
+                document.querySelector('.autocomplete').style.display = 'none';
+
+            }
+            else if(e.keyCode == 27) {
+                x.select();
+            }
+        }
+
+    </script>
+</body>
+</html>
