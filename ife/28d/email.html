@@ -35,14 +35,11 @@
         let x = document.getElementById('email-input')
         let z = document.querySelectorAll('.suggest-item')
         let countKeyDown = 10;
+        let cont = '';
+        let nodelist = Array.from(postfixList);
         x.focus();
         z[0].style.backgroundColor = '#a1edf5';
-
         x.onkeydown = function(e){
-            let y = x.value.trim();
-            let cont = '';
-            let nodelist = Array.from(postfixList);
-            console.log(y.split('@')[0]);
             // 添加键盘
             console.log(countKeyDown);
             if(e.keyCode == 38 || e.keyCode == 40) {
@@ -64,32 +61,34 @@
             else if(e.keyCode == 27) {
             x.select();
         }
-                // 拼接
-            else if(y) {
-            document.querySelector('.autocomplete').style.display = 'block';
-            if (y.indexOf('@') >= 0){
-                cont = y.split('@')[0];
-                let indexCont = y.split('@')[1];
-                nodelist = postfixList.filter(x => x.slice(0, indexCont.length).indexOf(indexCont) + 1);
-                nodelist.length = 5;
-                nodelist = Array.from(nodelist);
-            }
-            else {
-                cont = y;
-            }
-            // 显示
-            nodelist.forEach(function(i, index){
-            if(i){
-                z[index].textContent = cont + '@' + i;
-            }
-            else {
-                z[index].textContent = '';
-            }
+        }
+        x.oninput = function() {
+            let y = x.value.trim();
+            console.log(y.split('@')[0]);
+            if(y) {
+                document.querySelector('.autocomplete').style.display = 'block';
+                if (y.indexOf('@') >= 0){
+                    cont = y.split('@')[0];
+                    let indexCont = y.split('@')[1];
+                    nodelist = postfixList.filter(x => x.slice(0, indexCont.length).indexOf(indexCont) + 1);
+                    nodelist.length = 5;
+                    nodelist = Array.from(nodelist);
+                }
+                else {
+                    cont = y;
+                }
+                // 显示
+                nodelist.forEach(function(i, index){
+                    if(i){
+                        z[index].textContent = cont + '@' + i;
+                    }
+                    else {
+                        z[index].textContent = '';
+                }
             })
             }
             else {
             document.querySelector('.autocomplete').style.display = 'none';}
-
 
         }
         // 添加
