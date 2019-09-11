@@ -35,52 +35,15 @@
         let x = document.getElementById('email-input')
         let z = document.querySelectorAll('.suggest-item')
         let countKeyDown = 10;
-        x.focus()
-        x.onkeyup = function(){
+        x.focus();
+        z[0].style.backgroundColor = '#a1edf5';
+
+        x.onkeydown = function(e){
             let y = x.value.trim();
             let cont = '';
             let nodelist = Array.from(postfixList);
             console.log(y.split('@')[0]);
-            // 拼接
-            if(y) {
-                document.querySelector('.autocomplete').style.display = 'block';
-                if (y.indexOf('@') >= 0){
-                    cont = y.split('@')[0];
-                    let indexCont = y.split('@')[1];
-                    nodelist = postfixList.filter(x => x.slice(0, indexCont.length).indexOf(indexCont) + 1);
-                    nodelist.length = 5;
-                    nodelist = Array.from(nodelist);
-                    console.log(nodelist);
-                }
-                else {
-                    cont = y;
-                }
-            // 显示
-            nodelist.forEach(function(i, index){
-                if(i){
-                    z[index].textContent = cont + '@' + i;
-                }
-                else {
-                    z[index].textContent = '';
-                }
-                })
-            }
-            else {
-            document.querySelector('.autocomplete').style.display = 'none';
-
-        }}
-        // 添加
-        z.forEach(function(numer, index){
-            numer.onclick = function() {
-                x.value = numer.textContent
-                x.focus();
-                document.querySelector('.autocomplete').style.display = 'none';
-            }
-        })
-
-        // 添加键盘
-        z[0].style.backgroundColor = '#a1edf5';
-        x.onkeydown = function(e){
+            // 添加键盘
             console.log(countKeyDown);
             if(e.keyCode == 38 || e.keyCode == 40) {
                 z.forEach(x => x.style.backgroundColor = '');
@@ -97,12 +60,72 @@
                 x.value = z[Math.abs(countKeyDown) % 5].textContent;
                 x.focus();
                 document.querySelector('.autocomplete').style.display = 'none';
-
             }
             else if(e.keyCode == 27) {
-                x.select();
-            }
+            x.select();
         }
+                // 拼接
+            else if(y) {
+            document.querySelector('.autocomplete').style.display = 'block';
+            if (y.indexOf('@') >= 0){
+                cont = y.split('@')[0];
+                let indexCont = y.split('@')[1];
+                nodelist = postfixList.filter(x => x.slice(0, indexCont.length).indexOf(indexCont) + 1);
+                nodelist.length = 5;
+                nodelist = Array.from(nodelist);
+            }
+            else {
+                cont = y;
+            }
+            // 显示
+            nodelist.forEach(function(i, index){
+            if(i){
+                z[index].textContent = cont + '@' + i;
+            }
+            else {
+                z[index].textContent = '';
+            }
+            })
+            }
+            else {
+            document.querySelector('.autocomplete').style.display = 'none';}
+
+
+        }
+        // 添加
+        z.forEach(function(numer, index){
+            numer.onclick = function() {
+                x.value = numer.textContent
+                x.focus();
+                document.querySelector('.autocomplete').style.display = 'none';
+            }
+        })
+
+        // // 添加键盘
+        // z[0].style.backgroundColor = '#a1edf5';
+        // x.onkeyup = function(e){
+        //     console.log(countKeyDown);
+        //     if(e.keyCode == 38 || e.keyCode == 40) {
+        //         z.forEach(x => x.style.backgroundColor = '');
+        //         if(e.keyCode == 40){
+        //             countKeyDown++;
+        //             z[Math.abs(countKeyDown) % 5].style.backgroundColor = '#a1edf5'
+        //         }
+        //         else{
+        //             countKeyDown--;
+        //             z[Math.abs(countKeyDown) % 5].style.backgroundColor = '#a1edf5'
+        //         }
+        //     }
+        //     else if(e.keyCode == 13){
+        //         x.value = z[Math.abs(countKeyDown) % 5].textContent;
+        //         x.focus();
+        //         document.querySelector('.autocomplete').style.display = 'none';
+
+        //     }
+        //     else if(e.keyCode == 27) {
+        //         x.select();
+        //     }
+        // }
 
     </script>
 </body>
