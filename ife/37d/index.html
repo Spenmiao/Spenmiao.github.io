@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>localstorage</title>
+    <style>
+        table tr td {
+            border: 1px solid black;
+        }
+        table {
+            border-collapse: collapse;
+        }
+        #mytable input {
+            border:none;
+            outline: 1px blue dashed;
+        }
+        #mytable input:focus{
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <table id="mytable" >
+        <tr>
+            <td>sdf</td>
+            <td>sdf</td>
+        </tr>
+    </table>
+    <input type="text" id='myinput'>
+    <input type="button" value="save">
+    <div id="hash">
+        <button id="a">A</button>
+        <button id="b">B</button>
+        <button id="c">C</button>
+        
+        <button id="d">D</button>
+        <button id="e">E</button>
+        <button id="f">F</button>
+        <div id="contABC"></div>
+        <div id="contDEF"></div>
+    </div>
+    
+    
+    <script>  
+        document.getElementById('mytable').onblur = function(event){
+            if (event.target.nodeName == 'INPUT'){
+                if (isNaN(event.target.value)) {
+                    alert('非数字')
+                }else {
+                    event.target.parentNode.innerHTML = event.target.value + event.target.parentNode.innerHTML
+                    console.log('done')
+
+                }
+            }
+        }
+        document.getElementById('mytable').onclick = function(event){
+            event.target.innerHTML = '<input type="text" id="changeInput" value="sfas">'
+        }
+        document.getElementById('hash').onclick = function(event){
+            if(event.target.nodeName =='BUTTON') {
+                location.hash = event.target.innerHTML
+                console.log(location.hash)
+                document.getElementById('contABC').innerHTML = location.hash
+            }
+        }
+    </script>
+</body>
+</html>
