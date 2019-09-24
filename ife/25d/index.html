@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>         
-<body>  
+    <title>日期，时间</title>
+</head>
+<body>
     <select id="year-select">
         <option value="2000">2000</option>
         <option value="2001">2001</option>
@@ -49,37 +49,7 @@
         ……
         <option>59</option>
     </select>
-    <button>现在距离2001年1月1日星期X</button>  
-    <p id="result-wrapper">HH:MM:SS 还有 X 天 X 小时 X 分 X 秒</p>
-
-    <script>
-        function queryButton() {
-            let x = document.querySelectorAll('select');
-            let y = parseInt(x[0].selectedOptions[0].value);
-            let m = parseInt(x[1].selectedOptions[0].value);
-            let d = parseInt(x[2].selectedOptions[0].value);
-            let hh = parseInt(x[3].selectedOptions[0].value);
-            let mm = parseInt(x[4].selectedOptions[0].value);
-            let ss = parseInt(x[5].selectedOptions[0].value);
-            console.log([y, m, d, hh, mm, ss])
-            let then = new Date(y, m, d, hh, mm, ss);
-            let now = new Date(2001, 1, 1);
-            let time = then - now;
-            console.log(time);
-            if(time >= 0) {
-                document.getElementById('result-wrapper').textContent = '已过去' + Math.abs(time/1000/60/60/24)
-            }
-            else {
-                document.getElementById('result-wrapper').textContent = '还有' + Math.abs(time/1000/60/60/24)
-
-
-            }
-        }
-        
-        document.querySelector('button').onclick = queryButton
-        
-        
-
-    </script>
+    
+    <p id="result-wrapper">现在距离 2001年1月1日星期X HH:MM:SS 还有 X 天 X 小时 X 分 X 秒</p>
 </body>
 </html>

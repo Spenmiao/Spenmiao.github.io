@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Prototype</title>
+</head>
+<body>
+    <script>
+        function Person(name, gender, age){
+            this.name = name;
+            this.gender = gender;
+            this.age = age;
+        }
+        Person.prototype.sayHello = function(){console.log('Hello ' + this.name)}
+        let person1 = new Person('Mike', 'Male', '28')
+        function Teacher(name, gender, age){
+            Person.call(this, name, gender, age);
+        }
+        Teacher.prototype = Object.create(Person.prototype);
+        Teacher.prototype.constructor = Teacher;
+        let teatcher1 = new Teacher('lori', 'male', '29')
+
+        function Book(subject, pages) {
+            this.subject = subject;
+            this.pages = pages;
+        }
+
+        let book1 = new Book('English', '440')
+
+
+    </script>
+
+</body>
+</html>
