@@ -146,4 +146,4 @@ let customer_order = ["月亮饼", "鸡蛋饼", "葱油饼", "豆浆", "玉米�
 // customer.ordered_list = customer_order;
 // server.customer_to_cook(customer, cook);
 // cook.to_cook()
-order()
+order(customer_order)
